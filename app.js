@@ -9,8 +9,15 @@ var bodyParser  = require("body-parser"),
     User        = require("./models/user"),
     Blog       = require("./models/blog"),
     app             = express();
+    
+var config = {
+    port: process.env.PORT,
+    ip: process.env.IP,
+    connectionString: process.env.CONNECTION_STRING || "mongodb://localhost/restful_blog_app"
+    
+}
 //app config 
-mongoose.connect("mongodb://localhost/restful_blog_app");
+mongoose.connect(config.connectionString);
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
