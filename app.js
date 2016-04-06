@@ -89,13 +89,13 @@ app.post("/blogs", function(req, res){
 app.get("/blogs/:id", function(req, res) {
     Blog.findById(req.params.id, function(err, foundBlog){
        
-      if( User){
-          res.render("show", {blog: foundBlog});
-          
-      }
-          else if(err){
+      
+           if(err){
             res.redirect("/blogs");
         }else{
+            foundBlog.isEditable = (req.user && foundBlog.createdBy === req.user.username);
+            console.log("foundBlog", foundBlog)
+            console.log("req.user", req.user)
             res.render("show", {blog: foundBlog});
         }
     });
@@ -120,7 +120,7 @@ app.put("/blogs/:id", function(req, res) {
     Blog.findById(req.params.id, function(err, foundBlog){
         if(err){
             res.send("something goes wrong " + err)
-        } else if(foundBlog.createdBy !== req.user.username){
+        } else if( req.user && foundBlog.createdBy !== req.user.username){
             res.send("You not allow to edit this");
         }else {
             
@@ -200,7 +200,15 @@ app.post("/register", function(req, res) {
 
 //my-blog
 app.get("/my-blog", function(req, res) {
-   res.render("my-blog"); 
+    Blog.find({ createdBy: req.user.username }, function(err, blogs) {
+        if(err){
+            console.error("error", err);
+            res.send(err);
+        }else{
+             res.render("my-blog", {blogs: blogs}); 
+        }
+    });
+  
 });
 
 // about
