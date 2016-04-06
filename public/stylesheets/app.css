@@ -1,0 +1,43 @@
+ i.icon {
+     font-size: 2em;
+ }
+ .container.main {
+     margin-top: 7.0em;
+ }
+ #delete {
+     display: inline;
+ }
+ .field {
+  width: 300px;
+ }
+ 
+ .pad {
+  padding-top: 120px;
+ }
+ .dropdown {
+  padding: 5px;
+ }
+ #dropdownMenu1 {
+  /*width: 100px;*/
+  background-color: white;
+  
+ }
+ 
+ 
+
+.form-group{
+ width: 30%;
+    margin-left: 35%;
+}
+.c {
+ text-align: center;
+}
+ 
+.photo {
+ background: url("https://images.unsplash.com/photo-1459156212016-c812468e2115?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=9a8805ebcb6e2c0cb24dc710d1c9db52");
+background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+ 
+}
+

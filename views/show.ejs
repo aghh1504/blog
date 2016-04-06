@@ -1,0 +1,41 @@
+<% include ./partials/header %>
+<div class="ui main text container segment">
+    <div class="ui huge header"><%= blog.title %></div>
+    <div class="ui top attached ">
+        <div class="item">
+            <div class="ui small images">
+             <img  class="ui centered rounded image" src="<%= blog.image %>" >
+             <% if (blog.imageA) { %>
+            <img  class="ui centered rounded image" src="<%= blog.imageA %>" >
+            <% } %>
+            <% if (blog.imageB) { %>
+             <img  class="ui centered rounded image" src="<%= blog.imageB %>" >
+             <% } %>
+             <% if (blog.imageC) { %>
+              <img class="ui centered rounded image" src="<%= blog.imageC %>" >
+              <% } %>
+              </div>
+            <div class="content">
+                <span><%= blog.created.toDateString() %></span>
+            </div>
+            <div class="description">
+                <p><%- blog.body %></p>
+            </div>
+            <div>Created by: <%= blog.createdBy%></div>
+                 
+            <% if( blog.createdBy === currentUser.username){ %>
+            <a class="ui orange basic button" href="/blogs/<%= blog._id %>/edit">Edit</a>
+            <form id="delete" action="/blogs/<%= blog._id %>?_method=DELETE" method="POST">
+                <button class="ui red basic button">Delete</button>
+                
+            </form>
+            <a class="ui blue basic button" href="/blogs/<%= blog._id %>/add-photo">Add Photo</a>
+            <% }%>
+        </div>
+    </div>
+    
+</div>
+<% include ./partials/footer %>
+
+
+

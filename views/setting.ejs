@@ -1,0 +1,33 @@
+<%include ./partials/header %>
+<form class="form-inline" action="/setting" method="post">
+    <%= message %>
+    <div class="container">
+    <img width="100"  src="<%= currentUser.photo %>">
+     
+    <div class="dropdown">
+        
+            <button class="btn btn-default dropdown-toggle"
+                type="button" id="dropdownMenu1" 
+                data-toggle="dropdown" 
+                aria-haspopup="true" 
+                aria-expanded="true"> 
+                <i class="fa fa-camera-retro"> </i> change
+            </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li><a href=#>My photos</a></li>
+            <li><a href="https://www.facebook.com/<%= currentUser.facebookAccount %>">facebook</a></li>
+            <li><a href="https://www.twitter.com/<%= currentUser.twitterAccount %>">twitter</a></li>
+        </ul>
+    </div>                          
+    
+     <div>
+        <h3>Write something about yourself</h3>
+       <input  class="form-control" type="text" name="description" placeholder="about" value="<%= currentUser.description %>">
+       
+    <button class="btn btn-primary">Submit!</button>
+    </div>
+    </div>
+</form>
+
+
+<%include ./partials/footer %>

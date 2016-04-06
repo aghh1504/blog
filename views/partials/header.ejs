@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blog App</title>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
+         <link rel="stylesheet" type="text/css" href="/stylesheets/app.css">
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+            <script src="https://code.jquery.com/jquery.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+              <meta charset="utf-8">
+              <meta name="viewport" content="width=device-width">
+                </head>
+    <body>
+       
+        
+      <div class="ui fixed inverted menu">
+            <div class="ui container">
+            <div class="header item"><i class="code icon"></i></div>
+                 <a href="/" class="item">Blog Site</a>
+                <a href="/blogs" class="item">Home</a>
+                <a href="/blogs/new" class="item">New Post</a>
+                <!--<a href="/login" class="item">Login</a>-->
+                <!--<a href="/register" class="item">Sign Up!</a>-->
+         </div> 
+             
+                               
+            
+            <div class="collapse navbar-collapse">
+                         <ul class="nav navbar-nav navbar-right">
+                             <% if(!currentUser){ %>
+                               <li><a href="/login">Login</a></li>
+                               <li><a href="/register">Sign Up</a></li>
+                               <% } else { %>
+                       <div class="dropdown">
+                              <img width="70" src="<%= currentUser.photo %>" 
+                              type="button" id="dropdownMenu1" 
+                              data-toggle="dropdown" 
+                              aria-haspopup="true" 
+                              aria-expanded="true">
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li><a href="/my-blog">My blog</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="/setting">Settings</a></li>
+                                <li><a href="/logout">Logout</a></li>
+                             </ul>
+                        </div>
+
+                                   
+                               
+                               
+                               <% } %>
+                        </ul>
+             </div>
+        </div>   
+        <div class="pad">
+        

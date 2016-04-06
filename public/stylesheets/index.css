@@ -1,0 +1,29 @@
+h4 {
+    font-size: 14px;
+    display: inline;
+    padding-right:50px;
+    
+}
+#first{
+     padding-left:230px;
+}
+#bottom {
+    font-size: 12px;
+    padding-left:20px;
+    text-align: center;
+}
+hr {
+    width:70%;
+}
+.col-md-4 {
+    margin-top: 100px;
+    border-left: 1px solid gray;
+}
+.media{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    
+}
+.list-group{
+    margin-right: 15px;
+}
