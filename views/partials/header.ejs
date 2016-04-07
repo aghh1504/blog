@@ -31,13 +31,31 @@
                              <% if(!currentUser){ %>
                                <li><a href="/login">Login</a></li>
                                <li><a href="/register">Sign Up</a></li>
-                               <% } else { %>
-                       <div class="dropdown">
-                              <img width="70" src="<%= currentUser.photo %>" 
+                               <% } else if(!currentUser.photo) { %>
+                               
+                                <div class="dropdown">
+                              <i  class="fa fa-user fa-5x"
                               type="button" id="dropdownMenu1" 
                               data-toggle="dropdown" 
                               aria-haspopup="true" 
-                              aria-expanded="true">
+                              aria-expanded="true"></i>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li><a href="/my-blog">My blog</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="/setting">Settings</a></li>
+                                <li><a href="/logout">Logout</a></li>
+                             </ul>
+                        </div>
+                         <% } else { %>
+
+                               
+                       <div class="dropdown">
+                              <img width="70" src="<%= currentUser.photo %>"
+                              type="button" id="dropdownMenu1" 
+                              data-toggle="dropdown" 
+                              aria-haspopup="true" 
+                              aria-expanded="true"> 
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                 <li><a href="/my-blog">My blog</a></li>
                                 <li><a href="/about">About</a></li>

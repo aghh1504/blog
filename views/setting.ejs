@@ -2,7 +2,11 @@
 <form class="form-inline" action="/setting" method="post">
     <%= message %>
     <div class="container">
-    <img width="100"  src="<%= currentUser.photo %>">
+             <% if(!currentUser.photo) { %>
+            <i  class="fa fa-user fa-5x"></i>
+     <% } else  { %>
+            <img width="100"  src="<%= currentUser.photo %>">
+     <% } %>
      
     <div class="dropdown">
         
