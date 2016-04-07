@@ -4,9 +4,7 @@ h4 {
     padding-right:50px;
     
 }
-#first{
-     padding-left:230px;
-}
+
 #bottom {
     font-size: 12px;
     padding-left:20px;
@@ -25,5 +23,6 @@ hr {
     
 }
 .list-group{
-    margin-right: 15px;
+    margin-right: 150px;
+    
 }
