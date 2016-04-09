@@ -47,12 +47,17 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
   
-  app.use(function(req, res, next){
+app.use(function(req, res, next){
     res.locals.currentUser = req.user;
-    
     next();
 });
-
+//middleware
+function isLoggedIn(req, res, next){
+    if(req.isAuthenticated()){
+        return next();
+    }
+    res.redirect("/login");
+}
 //RESTFUL ROUTES
 
 
@@ -190,7 +195,7 @@ app.get("/blogs/:id/comments/new", function(req, res) {
     });
 });
 //comments post
-app.post("/blogs/:id/comments", function(req, res) {
+app.post("/blogs/:id/comments",isLoggedIn, function(req, res) {
     Blog.findById(req.params.id, function(err, blog) {
         if(err){
             console.log(err);
@@ -200,6 +205,9 @@ app.post("/blogs/:id/comments", function(req, res) {
                 if(err){
                     console.log(err);
                 }else{
+                    comment.author.id = req.user._id
+                    comment.author.username = req.user.username;
+                    comment.save();
                     blog.comments.push(comment);
                     blog.save();
                     res.redirect("/blogs/" + blog._id);

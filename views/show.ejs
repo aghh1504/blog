@@ -40,7 +40,7 @@
                 <hr>
             <%blog.comments.forEach(function(comment){%>
                 <p>
-                    <strong><%= comment.author %></strong>
+                    <strong><%= comment.author.username %></strong>
                 </p>
                 <p>
                     <%= comment.text %>
