@@ -7,7 +7,14 @@ var blogSchema = new mongoose.Schema({
     imageB: String,
     imageC: String,
     created: {type: Date, default: Date.now},
-    createdBy: String
+    createdBy: String,
+    comments: [
+                {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: "Comment"
+                    
+                }
+              ]
     
 });
 

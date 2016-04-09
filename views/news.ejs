@@ -1,0 +1,21 @@
+<%include ./partials/header %>
+ 
+ <div class="ui main text container segment">
+     <div class="ui huge header">New Comment </div>
+     <form class="ui form" action="/blogs/<%= blog._id%>/comments" method="POST">
+          <div class="field">
+             <label>Comment</lable>
+             <textarea name="comment[text]"></textarea>
+        </div>
+        <div class="field">
+             <label>Author</lable>
+             <input type="text" name="comment[author]" placeholder="author">
+             
+        </div>
+       
+             <input class="ui violet big basic button" type="submit">
+         </form>
+         <a href="/blogs">Go Back</a>
+</div>
+
+<%include ./partials/footer %>

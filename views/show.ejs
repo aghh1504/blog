@@ -31,6 +31,22 @@
             </form>
             <a class="ui blue basic button" href="/blogs/<%= blog._id %>/add-photo">Add Photo</a>
             <% }%>
+            
+            <!--comments-->
+           
+            <div class="text-right">
+                    <a class="ui green basic button" href="/blogs/<%=blog._id %>/comments/new">Add comment</a>
+                </div>
+                <hr>
+            <%blog.comments.forEach(function(comment){%>
+                <p>
+                    <strong><%= comment.author %></strong>
+                </p>
+                <p>
+                    <%= comment.text %>
+                </p>
+            <% })%>
+            
         </div>
     </div>
     

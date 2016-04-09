@@ -8,6 +8,7 @@ var bodyParser  = require("body-parser"),
     session      = require("express-session"),
     User        = require("./models/user"),
     Blog       = require("./models/blog"),
+    Comment       = require("./models/comments"),
     app             = express();
     
 var config = {
@@ -94,7 +95,7 @@ app.post("/blogs", function(req, res){
 
 //show route
 app.get("/blogs/:id", function(req, res) {
-    Blog.findById(req.params.id, function(err, foundBlog){
+    Blog.findById(req.params.id).populate("comments").exec(function(err, foundBlog){
        
       
            if(err){
@@ -175,6 +176,35 @@ app.get("/blogs/:id/add-photo", function(req, res) {
             res.send(err);
         }else{
             res.redirect("/blogs/" + req.params.id);
+        }
+    });
+});
+//commenst routes
+app.get("/blogs/:id/comments/new", function(req, res) {
+    Blog.findById(req.params.id, function(err, blog) {
+        if(err) {
+            console.log(err);
+        } else {
+            res.render("news", {blog: blog});
+        }
+    });
+});
+//comments post
+app.post("/blogs/:id/comments", function(req, res) {
+    Blog.findById(req.params.id, function(err, blog) {
+        if(err){
+            console.log(err);
+            res.redirect("/blogs");
+        } else {
+            Comment.create(req.body.comment, function(err, comment) {
+                if(err){
+                    console.log(err);
+                }else{
+                    blog.comments.push(comment);
+                    blog.save();
+                    res.redirect("/blogs/" + blog._id);
+                }
+            });
         }
     });
 });

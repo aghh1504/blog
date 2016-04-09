@@ -1,12 +1,13 @@
 <% include ./partials/header %>
 <div class="container">
-<img width="100" src="<%= currentUser.photo %>" 
+ <img width="100" src="<%= currentUser.photo %>" 
 
 <div>
-<h3> <%= currentUser.description %> </h3>
-</div>
-</div>
+ <h3> <%= currentUser.description %> </h3>
 
+<a href="/setting">Edit</a>
+</div>
+</div>
 
 
 <% include ./partials/footer %>
