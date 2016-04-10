@@ -1,22 +1,23 @@
-var bodyParser  = require("body-parser"),
-    methodOverride  = require("method-override"),
-    expressSanitizer = require("express-sanitizer"),
-    mongoose        = require("mongoose"),
-    express         = require("express"),
-    passport    = require("passport"),
-    LocalStrategy = require("passport-local"),
-    session      = require("express-session"),
-    User        = require("./models/user"),
-    Blog       = require("./models/blog"),
-    Comment       = require("./models/comments"),
-    app             = express();
-    
+var bodyParser          = require("body-parser"),
+    methodOverride      = require("method-override"),
+    expressSanitizer    = require("express-sanitizer"),
+    mongoose            = require("mongoose"),
+    express             = require("express"),
+    passport            = require("passport"),
+    LocalStrategy       = require("passport-local"),
+    session             = require("express-session"),
+    User                = require("./models/user"),
+    Blog                = require("./models/blog"),
+    Comment             = require("./models/comments"),
+    flash              = require("connect-flash"),
+    app                 = express();
+ 
+var commentRoutes    = require("./routes/comments");    
 var config = {
     port: process.env.PORT,
     ip: process.env.IP,
     connectionString: process.env.CONNECTION_STRING || "mongodb://localhost/restful_blog_app"
-    
-}
+    }
 //app config 
 mongoose.connect(config.connectionString);
 app.set("view engine", "ejs");
@@ -24,7 +25,7 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(expressSanitizer());
 app.use(methodOverride("_method"));
-
+app.use(flash());
 
 var MongoStore = require("connect-mongo")(session);
 
@@ -51,6 +52,7 @@ app.use(function(req, res, next){
     res.locals.currentUser = req.user;
     next();
 });
+app.use("/blogs/:id/comments", commentRoutes);
 //middleware
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
@@ -78,13 +80,13 @@ app.get("/blogs", function(req, res){
 });
 
 //New route
-app.get("/blogs/new", function(req, res) {
+app.get("/blogs/new",isLoggedIn, function(req, res) {
     res.render("new");
 });
 
 
 //Create route
-app.post("/blogs", function(req, res){
+app.post("/blogs",isLoggedIn, function(req, res){
     //create blog
     req.body.blog.body = req.sanitize(req.body.blog.body)
     req.body.blog.createdBy = req.user.username;
@@ -181,38 +183,6 @@ app.get("/blogs/:id/add-photo", function(req, res) {
             res.send(err);
         }else{
             res.redirect("/blogs/" + req.params.id);
-        }
-    });
-});
-//commenst routes
-app.get("/blogs/:id/comments/new", function(req, res) {
-    Blog.findById(req.params.id, function(err, blog) {
-        if(err) {
-            console.log(err);
-        } else {
-            res.render("news", {blog: blog});
-        }
-    });
-});
-//comments post
-app.post("/blogs/:id/comments",isLoggedIn, function(req, res) {
-    Blog.findById(req.params.id, function(err, blog) {
-        if(err){
-            console.log(err);
-            res.redirect("/blogs");
-        } else {
-            Comment.create(req.body.comment, function(err, comment) {
-                if(err){
-                    console.log(err);
-                }else{
-                    comment.author.id = req.user._id
-                    comment.author.username = req.user.username;
-                    comment.save();
-                    blog.comments.push(comment);
-                    blog.save();
-                    res.redirect("/blogs/" + blog._id);
-                }
-            });
         }
     });
 });

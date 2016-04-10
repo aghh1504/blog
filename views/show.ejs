@@ -45,11 +45,17 @@
                 <p>
                     <%= comment.text %>
                 </p>
-            <% })%>
-            
-        </div>
+                <%if(currentUser && comment.author.id && comment.author.id.equals(currentUser._id)){%>
+                     <a class="ui yellow basic button" 
+                      href="/blogs/<%=blog._id %>/comments/<%=comment._id %>/edit">Edit
+                     </a>
+                  <form id="delete-form" action="/blogs/<%= blog._id%>/comments/<%= comment._id%>?_method=DELETE" method="POST">
+                      <input type="submit" class="ui red basic button" value="Delete">
+                  </form>
+                <% }%>
+         </div>
     </div>
-    
+    <% })%>
 </div>
 <% include ./partials/footer %>
 

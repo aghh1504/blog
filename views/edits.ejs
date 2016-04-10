@@ -1,0 +1,15 @@
+<%include ./partials/header %>
+ 
+ <div class="ui main text container segment">
+     <div class="ui huge header">Edit Comment</div>
+     <form class="ui form" action="/blogs/<%= blog_id %>/comments/<%= comment._id %>?_method=PUT" method="POST">
+         
+        <div class="field">
+             <label>Comment Content</lable>
+             <input type="text" name="comment[text]" value="<%= comment.text %>">
+        </div>
+             <input class="ui violet big basic button" type="submit">
+         </form>
+</div>
+
+<%include ./partials/footer %>
