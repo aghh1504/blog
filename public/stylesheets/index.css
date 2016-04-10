@@ -26,3 +26,20 @@ hr {
     margin-right: 150px;
     
 }
+.jumbotron.head{
+  background: url("https://images.unsplash.com/photo-1437590552276-2e17e82b7b48?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=bc08a323245690c2f5a02c06ac20a812");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 300px;
+  padding-bottom: 0px;
+  text-align: center;
+  font-family: Indie Flower;
+  color: white;
+ }
+ .jumbotron.top {
+     background-color: white;
+     height: 150px;
+     text-align: center;
+     font-family: Amatic SC;
+ }
