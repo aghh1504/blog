@@ -1,7 +1,7 @@
 var express = require("express");
 var app = express.Router({mergeParams: true}); 
 var Blog = require("../models/blog");
-var likes = require("../models/likes");
+var Like = require("../models/like");
 var middleware = require("../middleware");
   
   
@@ -11,24 +11,43 @@ app.post("/",middleware.isLoggedIn,function(req, res) {
     Blog.findById(req.params.id, function(err, blog) {
         if(err){
             console.log(err);
-            res.redirect("/blogs");
+            res.status(500).send("error reading blog");
         } else {
             console.log(blog.likes)
             if(blog.likes === undefined) {
-              blog.likes = 0;
+              blog.likes = [];
             }
-            likes.create(req.body.likes, function(err, likes) {
+            var userHasAlreadyLiked = false;
+            for(var index =0; index<blog.likes.length; index++){
+                var currentLike = blog.likes[index];
+                console.log(currentLike, req.user.username, currentLike.username === req.user.username)
+                if(currentLike.username === req.user.username){
+                    userHasAlreadyLiked = true;
+                } 
+            }
+            if(userHasAlreadyLiked){
+                 res.status(400).send("You already liked this");
+                 return
+            }
+            var newLike = {
+                username: req.user.username
+                }
+            Like.create(newLike, function(err, createdLike) {
                 if(err){
-                     req.flash("error", "Somethings went wrong");
+                     res.status(500).send("error creating like");
                     console.log(err);
                 }else{
 
-            likes.author.id = req.user._id;
-            likes.author.username = req.user.username;
-            likes.save();
-            blog.likes = blog.likes + 1;
-            blog.save();
-            res.end();
+                    blog.likes.push(createdLike);
+                    blog.save(function(err){
+                         if(err){
+                            res.status(500).send("error creating like");
+                            console.log(err);
+                         }else{
+                             res.send("recorded");
+                         }
+                    });
+                   
                         
                 }
             });

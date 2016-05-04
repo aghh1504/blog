@@ -1,7 +1,7 @@
 var express = require("express");
 var app = express.Router();
 var Blog = require("../models/blog");
-var Like = require("../models/likes");
+var Like = require("../models/like");
 var middleware = require("../middleware");
 
 app.get("/", function(req, res) {

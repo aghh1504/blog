@@ -47,9 +47,9 @@
             <div class="text-right">
                   <!--likes-->
                   <%if(currentUser){%>
-                      <button class="fa fa-heart-o fa-2x js-like red" ><%=blog.likes%></button>
+                      <button class="fa fa-heart-o fa-2x js-like red" ><%=blog.likes.length%></button>
                         <% } else{%>
-                         <button class="fa fa-heart-o fa-2x js-like " ><%=blog.likes%></button>
+                         <button class="fa fa-heart-o fa-2x js-like " ><%=blog.likes.length%></button>
                          <% } %>
                          <% if(currentUser) {%>
                           <script>
