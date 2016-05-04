@@ -1,6 +1,19 @@
 <%include ./partials/header %>
+<style>
+.jumbotron.cover {
+  background: url("<%= currentUser.cover %>");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  
+ 
+}
+</style>
 <form class="form-inline" action="/setting" method="post">
     <%= message %>
+    <div class="jumbotron cover">
+        
     <div class="container">
              <% if(!currentUser.photo) { %>
             <i  class="fa fa-user fa-5x"></i>
@@ -18,20 +31,18 @@
                 <i class="fa fa-camera-retro"> </i> change
             </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a href=#>My photos</a></li>
+            <li><a href="/uploads">My photos</a></li>
             <li>facebooks</li>
             <li><a href="https://www.twitter.com/<%= currentUser.twitterAccount %>">twitter</a></li>
         </ul>
-    </div>                          
-    
-     <div>
-        <h3>Write something about yourself</h3>
-       <input  class="form-control" type="text" name="description" placeholder="about" value="<%= currentUser.description %>">
-       
-    <button class="btn btn-primary">Submit!</button>
+    </div>  
+    <a href="/upload">Change cover</a>
+   
+        
     </div>
     </div>
-</form>
+ </form>
+     
 
 
 <%include ./partials/footer %>

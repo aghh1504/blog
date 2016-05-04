@@ -17,14 +17,14 @@ app.get("/register", function(req, res) {
 });
 //handle sign up logic
 app.post("/register", function(req, res) {
-    var newUser = new User({username: req.body.username, photo: req.body.photo});
+    var newUser = new User({username: req.body.username, photo: req.body.photo, cover: req.body.cover});
     User.register(newUser, req.body.password, function(err, user){
         if(err){
             console.log(err);
             return res.render("register");
         }
         passport.authenticate("local")(req, res, function(){
-            req.flash("success", "Welcome to YelpCamp " + user.username);
+            req.flash("success", "Welcome to Travel Blog " + user.username);
             res.redirect("/blogs");
         });
     });

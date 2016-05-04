@@ -1,6 +1,26 @@
 <% include ./partials/header %>
+<style>
+.jumbotron.cover {
+  background: url("<%= currentUser.cover %>");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  
+  
+}
+</style>
+<div class="jumbotron cover">
+   <div class="container">
+        <img width="200" src="<%= currentUser.photo %>">
+   </div>
+</div>
 
 <div class="ui main text container">
 <% include ./partials/blogList %>
 </div>
 <% include ./partials/footer %>
+
+
+
+<!--<a href="/setting">Edit</a>-->

@@ -7,6 +7,7 @@
          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
          <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
             <script src="https://code.jquery.com/jquery.min.js"></script>
+            
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
               <meta charset="utf-8">
               <meta name="viewport" content="width=device-width">
@@ -41,7 +42,6 @@
                               aria-expanded="true"></i>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                 <li><a href="/my-blog">My blog</a></li>
-                                <li><a href="/about">About</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="/setting">Settings</a></li>
                                 <li><a href="/logout">Logout</a></li>
@@ -58,7 +58,6 @@
                               aria-expanded="true"> 
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                 <li><a href="/my-blog">My blog</a></li>
-                                <li><a href="/about">About</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="/setting">Settings</a></li>
                                 <li><a href="/logout">Logout</a></li>
@@ -70,8 +69,10 @@
                                
                                <% } %>
                         </ul>
+                        
              </div>
         </div> 
+        
         <div class="pad">
         <div class="container">
            <% if(error && error.length >0) { %>
@@ -88,4 +89,4 @@
        </div>
     
         
-        
+       

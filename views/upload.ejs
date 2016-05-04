@@ -1,0 +1,14 @@
+<%include ./partials/header %>
+<style>
+    body{
+        padding-top: 100px;
+    }
+</style>
+<form action="/upload" method="post" enctype="multipart/form-data">
+    <label for=photo >photo</label>  
+  <input type="file" name="photo" id="photo">
+  <input type="submit">
+</form>
+
+
+<%include ./partials/footer %>

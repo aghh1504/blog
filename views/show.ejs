@@ -1,28 +1,38 @@
 <% include ./partials/header %>
 <div class="ui main text container segment">
-    <div class="ui huge header"><%= blog.title %></div>
+    
     <div class="ui top attached ">
         <div class="item">
-            <div class="ui small images">
-             <img  class="ui centered rounded image" src="<%= blog.image %>" >
-             <% if (blog.imageA) { %>
-            <img  class="ui centered rounded image" src="<%= blog.imageA %>" >
+            <div class="col-md-4">
+                
+           <div class="ui small images "zoomTarget" data-targetsize="0.45" data-duration="600""> 
+           
+            <img  class="ui centered rounded image" src="<%= blog.image %>" >
+         <% if (blog.imageA) { %>
+           <img  class="ui centered rounded image" src="<%= blog.imageA %>" >
             <% } %>
-            <% if (blog.imageB) { %>
-             <img  class="ui centered rounded image" src="<%= blog.imageB %>" >
+           <% if (blog.imageB) { %>
+           <img  class="ui centered rounded image" src="<%= blog.imageB %>" >
              <% } %>
-             <% if (blog.imageC) { %>
-              <img class="ui centered rounded image" src="<%= blog.imageC %>" >
-              <% } %>
-              </div>
-            <div class="content">
-                <span><%= blog.created.toDateString() %></span>
-            </div>
+            <% if (blog.imageC) { %>
+           <img class="ui centered rounded image" src="<%= blog.imageC %>" >
+            <% } %>
+             </div>
+             </div>
+             
+            <div class="col-md-8">
+                <div class="ui huge header"><%= blog.title %></div>
+            
             <div class="description">
                 <p><%- blog.body %></p>
             </div>
+            <div class="content">
+                <span><%= blog.created.toDateString() %></span>
+            </div>
+            <hr>
             <div>Created by: <%= blog.createdBy%></div>
-                 
+                
+
             <% if(blog.isEditable){ %>
             <a class="ui orange basic button" href="/blogs/<%= blog._id %>/edit">Edit</a>
             <form id="delete" action="/blogs/<%= blog._id %>?_method=DELETE" method="POST">
@@ -32,10 +42,32 @@
             <a class="ui blue basic button" href="/blogs/<%= blog._id %>/add-photo">Add Photo</a>
             <% }%>
             
-            <!--comments-->
+            <!--comments and likes-->
            
             <div class="text-right">
-                    <a class="ui green basic button" href="/blogs/<%=blog._id %>/comments/new">Add comment</a>
+                  <!--likes-->
+                  <%if(currentUser && likes.author.id && likes.author.id.equals(currentUser._id)){%>
+                      <button class="fa fa-heart-o fa-2x js-like red" ><%=blog.likes%></button>
+                        <% } else{%>
+                         <button class="fa fa-heart-o fa-2x js-like " ><%=blog.likes%></button>
+                         <% } %>
+                         <% if(currentUser) {%>
+                          <script>
+                              $(function() {
+                                  $(".js-like").one("click", function(){
+                                    $.post("/blogs/<%=blog._id %>/likes/")
+                                  $( this ).addClass( ".js-like red" );
+                                  $(this).text(parseInt($(this).text()) + 1);
+                                  })  
+                                })
+                           </script>
+                  
+                    <% } else{%>
+                    <button class="fa fa-heart-o fa-2x js-like " ><%=blog.likes%></button>
+                     <% }%>
+               
+                <!--comments-->
+                    <a class="fa fa-comment-o fa-2x"  href="/blogs/<%=blog._id %>/comments/new"></a>
                 </div>
                 <hr>
             <%blog.comments.forEach(function(comment){%>
@@ -53,11 +85,26 @@
                       <input type="submit" class="ui red basic button" value="Delete">
                   </form>
                 <% }%>
-         </div>
-    </div>
+         
+    
     <% })%>
 </div>
+</div>
+</div>
+</div>
+            <!--<script>-->
+            
+            <!--    $(function() {-->
+            <!--      $(".js-like").on("click", function(){-->
+                      
+            <!--        $.post("/blogs/<%=blog._id %>/likes/")-->
+            <!--         $( this ).toggleClass( ".js-like red" );-->
+            <!--        $(this).text(parseInt($(this).text()) + 1);-->
+            <!--     })  -->
+            <!--    })-->
+            <!--</script>-->
+                
+              
 <% include ./partials/footer %>
-
 
 

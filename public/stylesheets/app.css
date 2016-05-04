@@ -12,7 +12,7 @@
  }
  
  .pad {
-  padding-top: 100px;
+  padding-top: 80px;
  }
  .dropdown {
   padding: 5px;
@@ -42,4 +42,18 @@ background-size: cover;
 }
 #delete-form {
     display: inline;
+}
+
+
+
+.jumbotron.cover:hover {
+   
+}
+.js-like {
+ background: white;
+ border: none;
+ outline: none;
+}
+.red {
+ color: red;
 }

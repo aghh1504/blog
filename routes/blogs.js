@@ -1,6 +1,7 @@
 var express = require("express");
 var app = express.Router();
 var Blog = require("../models/blog");
+var Like = require("../models/likes");
 var middleware = require("../middleware");
 
 app.get("/", function(req, res) {
@@ -42,15 +43,22 @@ app.post("/blogs",middleware.isLoggedIn, function(req, res){
 //show route
 app.get("/blogs/:id", function(req, res) {
     Blog.findById(req.params.id).populate("comments").exec(function(err, foundBlog){
-       
       
            if(err){
             res.redirect("/blogs");
         }else{
-            foundBlog.isEditable = (req.user && foundBlog.createdBy === req.user.username);
+            Like.findById(req.params.id).populate("likes").exec(function(err, likes){
+                if(err){
+                    res.redirect("/blogs")
+                } else {
+                foundBlog.isEditable = (req.user && foundBlog.createdBy === req.user.username);
             console.log("foundBlog", foundBlog)
             console.log("req.user", req.user)
-            res.render("show", {blog: foundBlog});
+            console.log("likes", likes)
+            res.render("show", {blog: foundBlog, likes: likes});
+                }
+            });       
+            
         }
     });
     
@@ -125,50 +133,4 @@ app.get("/blogs/:id/add-photo", function(req, res) {
         }
     });
 });
-app.get("/my-blog", function(req, res) {
-    Blog.find({ createdBy: req.user.username }, function(err, blogs) {
-        if(err){
-            console.error("error", err);
-            res.send(err);
-        }else{
-             res.render("my-blog", {blogs: blogs}); 
-        }
-    });
-  
-});
-
-// about
-app.get("/about",middleware.isLoggedIn, function(req, res) {
-    res.render("about");
-});
-//setting
- app.get("/setting",middleware.isLoggedIn,function(req, res) {
-     res.render("setting",{ message: "" });
- });
- app.post("/setting",middleware.isLoggedIn, function(req, res) {
-     console.log('hello');
-     // create variable to store
-     var description = req.body.description;
-     
-     var user = req.user;
-     console.log(req.user);
-     //var connected with user
-    user.description = description ;
-    
-    user.save(function(err){
-        if(err){
-            res.render("setting", { message: "Failed to save" });
-            return;
-        }
-        req.login(user, function(err){
-            if(err){
-                res.render("setting", { message: "Failed to update profile" });
-                return;
-            }
-              res.redirect("about" );
-        });
-    });
-     
- });
-
 module.exports = app;

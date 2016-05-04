@@ -2,7 +2,7 @@ var bodyParser          = require("body-parser"),
     methodOverride      = require("method-override"),
     expressSanitizer    = require("express-sanitizer"),
     mongoose            = require("mongoose"),
-    flash              = require("connect-flash"),
+    flash               = require("connect-flash"),
     express             = require("express"),
     passport            = require("passport"),
     LocalStrategy       = require("passport-local"),
@@ -10,11 +10,19 @@ var bodyParser          = require("body-parser"),
     User                = require("./models/user"),
     Blog                = require("./models/blog"),
     Comment             = require("./models/comments"),
-    app                 = express();
+    Likes               = require("./models/likes"),
+    Photo               = require("./models/photo"),
+    app                 = express(),
+    multer              = require('multer');
  
 var commentRoutes    = require("./routes/comments"),
     blogRoutes       = require("./routes/blogs"),
-    indexRoutes      = require("./routes/index");
+    indexRoutes      = require("./routes/index"),
+    uploadRoutes     = require("./routes/upload"),
+    uploadsRoutes    = require("./routes/uploads"),
+    settingRoutes    = require("./routes/setting"),
+    likesRoutes      = require("./routes/likes");
+    
 var config = {
     port: process.env.PORT,
     ip: process.env.IP,
@@ -28,6 +36,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(expressSanitizer());
 app.use(methodOverride("_method"));
 app.use(flash());
+
 
 var MongoStore = require("connect-mongo")(session);
 
@@ -58,6 +67,10 @@ app.use(function(req, res, next){
 app.use("/blogs/:id/comments", commentRoutes);
 app.use("", blogRoutes);
 app.use("", indexRoutes);
+app.use("/upload",uploadRoutes);
+app.use("/uploads",uploadsRoutes);
+app.use("", settingRoutes),
+app.use("/blogs/:id/likes", likesRoutes);
 
 
 app.listen(process.env.PORT, process.env.IP, function(){
