@@ -46,7 +46,7 @@
            
             <div class="text-right">
                   <!--likes-->
-                  <%if(currentUser && likes.author.id && likes.author.id.equals(currentUser._id)){%>
+                  <%if(currentUser){%>
                       <button class="fa fa-heart-o fa-2x js-like red" ><%=blog.likes%></button>
                         <% } else{%>
                          <button class="fa fa-heart-o fa-2x js-like " ><%=blog.likes%></button>
@@ -54,10 +54,21 @@
                          <% if(currentUser) {%>
                           <script>
                               $(function() {
-                                  $(".js-like").one("click", function(){
-                                    $.post("/blogs/<%=blog._id %>/likes/")
-                                  $( this ).addClass( ".js-like red" );
-                                  $(this).text(parseInt($(this).text()) + 1);
+                                  $(".js-like").on("click", function(){
+                                      var likeButton = this;
+                                    $.post("/blogs/<%=blog._id %>/likes/",null,function(data, status){
+                                        $( likeButton ).addClass( ".js-like red" );
+                                        
+                                        var currentCount =parseInt($(likeButton).text());
+                                        if(Number.isInteger(currentCount)){
+                                            currentCount+=1;
+                                        }else{
+                                            currentCount =1;
+                                        }
+                                         $(likeButton).text(currentCount);
+                                    })
+                                    // $( this ).addClass( ".js-like red" );
+                                    // $(this).text(parseInt($(this).text()) + 1);
                                   })  
                                 })
                            </script>
