@@ -72,6 +72,17 @@ app.use("/uploads",uploadsRoutes);
 app.use("", settingRoutes),
 app.use("/blogs/:id/likes", likesRoutes);
 
+// app.use(function(req,res,next){
+//   var _send = res.send;
+//   var sent = false;
+//   res.send = function(data){
+//     if(sent) return;
+//     _send.bind(res)(data);
+//     sent = true;
+// };
+//   next();
+// });
+
 
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log("Server is running!");
